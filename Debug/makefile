@@ -10,8 +10,12 @@ GEN_OPTS__FLAG := --cmd_file="configPkg/compiler.opt"
 GEN_CMDS__FLAG := -l"configPkg/linker.cmd" 
 
 ORDERED_OBJS += \
+"./Entrada.obj" \
 "./HVAC_IO.obj" \
 "./HVAC_Threads.obj" \
+"./HeartBeat.obj" \
+"./Imprimir.obj" \
+"./Salida.obj" \
 "./Threads.obj" \
 "./adc.obj" \
 "./gpio.obj" \
@@ -177,8 +181,9 @@ HVAC_TRES_HILOS_OBJ_ORG.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "HVAC_IO.obj" "HVAC_Threads.obj" "Threads.obj" "adc.obj" "gpio.obj" "timer.obj" "Aux_files\system_msp432p401r.obj" "Drivers_obj\Files.obj" "Drivers_obj\adc_f_MSP432.obj" "Drivers_obj\gpio_f_MSP432.obj" "Drivers_obj\int_MSP432.obj" "Drivers_obj\timer_f_msp432.obj" "Drivers_obj\uart_f_MSP432.obj" 
-	-$(RM) "HVAC_IO.d" "HVAC_Threads.d" "Threads.d" "adc.d" "gpio.d" "timer.d" "Aux_files\system_msp432p401r.d" "Drivers_obj\Files.d" "Drivers_obj\adc_f_MSP432.d" "Drivers_obj\gpio_f_MSP432.d" "Drivers_obj\int_MSP432.d" "Drivers_obj\timer_f_msp432.d" "Drivers_obj\uart_f_MSP432.d" 
+	-$(RM) "Entrada.obj" "HVAC_IO.obj" "HVAC_Threads.obj" "HeartBeat.obj" "Imprimir.obj" "Salida.obj" "Threads.obj" "adc.obj" "gpio.obj" "timer.obj" "Aux_files\system_msp432p401r.obj" "Drivers_obj\Files.obj" "Drivers_obj\adc_f_MSP432.obj" "Drivers_obj\gpio_f_MSP432.obj" "Drivers_obj\int_MSP432.obj" "Drivers_obj\timer_f_msp432.obj" "Drivers_obj\uart_f_MSP432.obj" 
+	-$(RM) "Entrada.d" "HVAC_IO.d" "HVAC_Threads.d" "HeartBeat.d" "Salida.d" "Threads.d" "adc.d" "gpio.d" "timer.d" "Aux_files\system_msp432p401r.d" "Drivers_obj\Files.d" "Drivers_obj\adc_f_MSP432.d" "Drivers_obj\gpio_f_MSP432.d" "Drivers_obj\int_MSP432.d" "Drivers_obj\timer_f_msp432.d" "Drivers_obj\uart_f_MSP432.d" 
+	-$(RM) "Imprimir.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '

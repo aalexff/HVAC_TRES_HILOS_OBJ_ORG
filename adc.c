@@ -7,30 +7,6 @@
 
 #include "HVAC.h"
 
-// Estructuras iniciales.
-
-const ADC_INIT_STRUCT adc_init =
-{
-    ADC_RESOLUTION_DEFAULT,                                                     // Resolución.
-    ADC_CLKDiv8                                                                 // División de reloj.
-};
-
-const ADC_INIT_CHANNEL_STRUCT adc_ch_param =
-{
-    TEMPERATURE_ANALOG_PIN,                                                      // Fuente de lectura, 'ANx'.
-    ADC_CHANNEL_MEASURE_LOOP | ADC_CHANNEL_START_NOW | ADC_INTERNAL_TEMPERATURE, // Banderas de inicialización (temperatura)
-    50000,                                                                       // Periodo en uS, base 1000.
-    ADC_TRIGGER_1                                                                // Trigger lógico que puede activar este canal.
-};
-
-const ADC_INIT_CHANNEL_STRUCT adc_ch_param2 =
-{
-    AN1,                                                                         // Fuente de lectura, 'ANx'.
-    ADC_CHANNEL_MEASURE_LOOP,                                                    // Banderas de inicialización (pot).
-    50000,                                                                       // Periodo en uS, base 1000.
-    ADC_TRIGGER_2                                                                // Trigger lógico que puede activar este canal.
-};
-
 /*FUNCTION******************************************************************************
 *
 * Function Name    : HVAC_InicialiceADC

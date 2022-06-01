@@ -107,11 +107,12 @@ extern void HVAC_SetPointDown(void);
 extern void print(char* message);
 extern void control_hilos_activados(void);
 extern void control_hilos_desactivados(void);
-extern void control_De_Hilos(void);
+extern void control_De_Hilos(void)
 
-FILE _PTR_ input_port = NULL, _PTR_ output_port = NULL;                  // Entradas y salidas.
-FILE _PTR_ fd_adc = NULL, _PTR_ fd_ch_T = NULL, _PTR_ fd_ch_H = NULL;    // ADC: ch_T -> Temperature, ch_H -> Pot.
-FILE _PTR_ fd_uart = NULL;                                               // Comunicación serial asíncrona.
+//Ubicación de archivos.
+extern FILE _PTR_ input_port = NULL, _PTR_ output_port = NULL;                  // Entradas y salidas.
+extern FILE _PTR_ fd_adc = NULL, _PTR_ fd_ch_T = NULL, _PTR_ fd_ch_H = NULL;    // ADC: ch_T -> Temperature, ch_H -> Pot.
+extern FILE _PTR_ fd_uart = NULL;                                               // Comunicación serial asíncrona.
 
 /* Definición de botones. */
 #define TEMP_PLUS   BSP_BUTTON1     /* Botones de suma y resta al valor deseado, funcionan con interrupciones. */
@@ -128,6 +129,8 @@ FILE _PTR_ fd_uart = NULL;                                               // Comu
 #define HEAT_LED    BSP_LED2
 #define HBeat_LED   BSP_LED3
 #define COOL_LED    BSP_LED4
+
+// Estructuras iniciales GPIO.
 
 extern uint_32 data[] =                                                          // Formato de las entradas.
 {                                                                                // Se prefirió un solo formato.
@@ -161,5 +164,43 @@ extern const uint_32 cool[] =                                                   
      COOL_LED,
      GPIO_LIST_END
 };
+
+// Estructuras iniciales ADC.
+
+extern const ADC_INIT_STRUCT adc_init =
+{
+    ADC_RESOLUTION_DEFAULT,                                                     // Resolución.
+    ADC_CLKDiv8                                                                 // División de reloj.
+};
+
+extern const ADC_INIT_CHANNEL_STRUCT adc_ch_param =
+{
+    TEMPERATURE_ANALOG_PIN,                                                      // Fuente de lectura, 'ANx'.
+    ADC_CHANNEL_MEASURE_LOOP | ADC_CHANNEL_START_NOW | ADC_INTERNAL_TEMPERATURE, // Banderas de inicialización (temperatura)
+    50000,                                                                       // Periodo en uS, base 1000.
+    ADC_TRIGGER_1                                                                // Trigger lógico que puede activar este canal.
+};
+
+extern const ADC_INIT_CHANNEL_STRUCT adc_ch_param2 =
+{
+    AN1,                                                                         // Fuente de lectura, 'ANx'.
+    ADC_CHANNEL_MEASURE_LOOP,                                                    // Banderas de inicialización (pot).
+    50000,                                                                       // Periodo en uS, base 1000.
+    ADC_TRIGGER_2                                                                // Trigger lógico que puede activar este canal.
+};
+
+/* Variables sobre las cuales se maneja el sistema. */
+
+extern float TemperaturaActual = 20;  // Temperatura.
+extern float SetPoint = 25.0;         // V. Deseado.
+
+extern char state[MAX_MSG_SIZE];      // Cadena a imprimir.
+
+extern bool toggle = 0;               // Toggle para el heartbeat.
+extern _mqx_int delay;                // Delay aplicado al heartbeat.
+extern bool event = FALSE;
+
+extern bool FAN_LED_State = 0;                                     // Estado led_FAN.
+extern const char* SysSTR[] = {"Cool","Off","Heat","Only Fan"};    // Control de los estados.
 
 #endif
