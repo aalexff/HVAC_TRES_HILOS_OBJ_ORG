@@ -107,7 +107,7 @@ extern void HVAC_SetPointDown(void);
 extern void print(char* message);
 extern void control_hilos_activados(void);
 extern void control_hilos_desactivados(void);
-extern void control_De_Hilos(void)
+extern void control_De_Hilos(void);
 
 //Ubicación de archivos.
 extern FILE _PTR_ input_port = NULL, _PTR_ output_port = NULL;                  // Entradas y salidas.
